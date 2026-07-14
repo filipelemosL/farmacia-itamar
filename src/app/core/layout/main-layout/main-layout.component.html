@@ -1,0 +1,34 @@
+<div class="layout-shell">
+  <aside class="sidebar">
+    <div class="brand-block">
+      <span class="brand-kicker">Farmacia Itamar</span>
+      <h1>Biblioteca de conhecimento</h1>
+      <p>Acervo rapido de orientacoes, posologias e observacoes praticas acumuladas por Itamar.</p>
+    </div>
+
+    <nav class="menu">
+      <a
+        *ngFor="let item of menuItems"
+        class="menu-link"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+      >
+        <span>{{ item.label }}</span>
+        <small>{{ item.description }}</small>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="content-area">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">Projeto em foco</span>
+        <strong>Preservar e consultar o conhecimento farmaceutico do Itamar</strong>
+      </div>
+    </header>
+
+    <section class="content-panel">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

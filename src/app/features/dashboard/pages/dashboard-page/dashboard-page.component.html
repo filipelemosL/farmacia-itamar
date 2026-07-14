@@ -1,0 +1,145 @@
+<app-page-header
+  title="Biblioteca de conhecimento do Itamar"
+  subtitle="Consulta rapida para uso familiar, com medicamentos visiveis no card e detalhes completos reunidos em um modal."
+></app-page-header>
+
+<section class="hero-grid">
+  <article class="glass-card hero-card hero-card--primary">
+    <span class="section-kicker">Acervo vivo</span>
+    <h3>Biblioteca farmaceutica de acesso rapido</h3>
+    <p>
+      O foco do sistema e armazenar, consultar e evoluir os conhecimentos do Itamar com clareza,
+      velocidade e apoio pratico para a familia.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <strong>{{ entries.length }}</strong>
+        <span>topicos iniciais</span>
+      </div>
+      <div>
+        <strong>{{ categories.length - 1 }}</strong>
+        <span>categorias de consulta</span>
+      </div>
+      <div>
+        <strong>44 anos</strong>
+        <span>de experiencia preservada</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="glass-card callout-card">
+    <span class="section-kicker">Diretriz de uso</span>
+    <h3>Consulta simples para a familia</h3>
+    <p>
+      Os cards mostram rapidamente o que costuma ser usado, enquanto o modal concentra
+      dosagem, intervalo entre tomadas, alertas e observacoes do Itamar.
+    </p>
+  </article>
+</section>
+
+<section class="toolbar">
+  <label class="search-box glass-card">
+    <span>Buscar por topico, sintoma ou medicamento</span>
+    <input
+      [(ngModel)]="searchTerm"
+      type="text"
+      placeholder="Ex.: gripe, dipirona, congestao nasal"
+    />
+  </label>
+
+  <div class="category-list">
+    <button
+      *ngFor="let category of categories"
+      type="button"
+      class="category-chip"
+      [class.active]="selectedCategory === category"
+      (click)="selectCategory(category)"
+    >
+      {{ category }}
+    </button>
+  </div>
+</section>
+
+<section class="library-grid">
+  <article class="knowledge-card glass-card" *ngFor="let entry of filteredEntries">
+    <div class="card-head">
+      <span class="entry-category">{{ entry.category }}</span>
+      <h3>{{ entry.topic }}</h3>
+    </div>
+
+    <div class="content-block">
+      <h4>Sintomas comuns</h4>
+      <div class="tag-row">
+        <span class="tag" *ngFor="let symptom of entry.symptoms">{{ symptom }}</span>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h4>Medicamentos mais usados</h4>
+      <div class="medication-list">
+        <button
+          *ngFor="let medication of entry.medications"
+          type="button"
+          class="medication-item medication-button"
+          (click)="openMedicationDetails(entry, medication)"
+        >
+          <strong>{{ medication.name }}</strong>
+          <small>{{ medication.presentation }}</small>
+        </button>
+      </div>
+    </div>
+  </article>
+</section>
+
+ 
+
+<div
+  *ngIf="selectedEntry && selectedMedication"
+  class="modal-overlay"
+  (click)="closeEntryDetails()"
+>
+  <section class="modal-card glass-card" (click)="$event.stopPropagation()">
+    <header class="modal-header">
+      <div>
+        <span class="entry-category">{{ selectedEntry.category }}</span>
+        <h3>{{ selectedMedication.name }}</h3>
+        <p class="modal-topic">{{ selectedEntry.topic }}</p>
+      </div>
+
+      <button type="button" class="modal-close" (click)="closeEntryDetails()">
+        Fechar
+      </button>
+    </header>
+
+    <div class="modal-section">
+      <h4>Forma de uso</h4>
+      <div class="modal-medication-list modal-medication-list--single">
+        <article class="modal-medication-card">
+          <strong>{{ selectedMedication.name }}</strong>
+          <span>Dosagem: {{ selectedMedication.dosage }}</span>
+          <span>Intervalo: {{ selectedMedication.frequency }}</span>
+          <small>Apresentacao: {{ selectedMedication.presentation }}</small>
+        </article>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Orientacoes do Itamar</h4>
+      <ul>
+        <li *ngFor="let note of selectedEntry.notes">{{ note }}</li>
+      </ul>
+    </div>
+
+    <div class="modal-section">
+      <h4>Conhecimento pratico</h4>
+      <div class="insight-box">
+        <p>{{ selectedEntry.expertInsight }}</p>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Quando buscar avaliacao</h4>
+      <p class="warning">{{ selectedEntry.warning }}</p>
+    </div>
+  </section>
+</div>

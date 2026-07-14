@@ -1,0 +1,41 @@
+:root {
+  --color-bg: #eaf4ff;
+  --color-surface: rgba(255, 255, 255, 0.78);
+  --color-surface-strong: rgba(239, 248, 255, 0.92);
+  --color-border: rgba(96, 165, 250, 0.18);
+  --color-text: #0f2742;
+  --color-muted: #44617f;
+  --color-primary: #1d4ed8;
+  --color-primary-soft: #60a5fa;
+  --color-primary-deep: #153e90;
+  --color-accent: #93c5fd;
+  --shadow-soft: 0 20px 48px rgba(30, 64, 175, 0.12);
+  --font-base: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font-base);
+  color: var(--color-text);
+  background:
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.34), transparent 30%),
+    radial-gradient(circle at top right, rgba(191, 219, 254, 0.52), transparent 26%),
+    linear-gradient(180deg, #f8fbff 0%, #eaf4ff 48%, #dcecff 100%);
+}
+
+body {
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
